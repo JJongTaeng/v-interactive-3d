@@ -1,0 +1,109 @@
+@keyframes ani-head {
+    from {
+        transform: rotateX(5deg);
+    }
+    to {
+        transform: rotateX(-5deg);
+    }
+}
+
+@keyframes ani-leg-left {
+    from {
+        transform: rotateX(30deg);
+    }
+    to {
+        transform: rotateX(-30deg);
+    }
+}
+@keyframes ani-leg-right {
+    from {
+        transform: rotateX(-30deg);
+    }
+    to {
+        transform: rotateX(30deg);
+    }
+}
+
+.character {
+    position: relative;
+    left: 12%;
+    bottom: 24%;
+    height: 19.41vw;
+    width: 9.51vw;
+    transform-style: preserve-3d;
+}
+
+.character.back {
+    transform: rotateY(180deg);
+}
+
+.head-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 9.04vw;
+    width: 9.51vw;
+    transform-style: preserve-3d;
+    animation: ani-head 1s infinite alternate ease-in-out;
+    transform-origin: center bottom;
+}
+
+.head {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 9.04vw;
+    width: 9.51vw;
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    background-size: contain;
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+}
+
+.head-front {
+    background-image: url("../images/head_front.png");
+}
+
+.head-back {
+    transform: rotateY(180deg);
+    background-image: url("../images/head_back.png");
+}
+
+.body {
+    position: absolute;
+    top: calc(9.04 / 19.41 * 100%);
+    left: calc((9.51 - 6.23) / 2 / 9.51 * 100%);
+    width: 6.23vw;
+    height: 5.31vw;
+    background-image: url("../images/body.png");
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    background-size: cover;
+}
+.left_leg {
+    position: absolute;
+    top: calc(14.35 / 19.41 * 100%);
+    left: calc((9.51 - 6.23) / 2 / 9.51 * 100%);
+    width: 3.19vw;
+    height: 5vw;
+    background-image: url("../images/leg_left.png");
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    background-size: contain;
+    transform-origin: top center;
+    animation: ani-leg-left 0.5s infinite alternate ease-in-out;
+}
+.right_leg {
+    position: absolute;
+    top: calc(14.35 / 19.41 * 100%);
+    right: calc((9.51 - 6.23) / 2 / 9.51 * 100%);
+    width: 3.19vw;
+    height: 5vw;
+    background-image: url("../images/leg_right.png");
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    background-size: contain;
+    transform-origin: top center;
+    animation: ani-leg-right 0.5s infinite alternate ease-in-out;
+}
