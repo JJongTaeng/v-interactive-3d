@@ -25,14 +25,19 @@
 }
 
 .character {
-    position: relative;
+    position: absolute;
     left: 12%;
-    bottom: 24%;
+    bottom: 5%;
     height: 19.41vw;
     width: 9.51vw;
     transform-style: preserve-3d;
 }
-
+.character[data-direction='left'] {
+    transform: rotateY(-90deg);
+}
+.character[data-direction='right'] {
+    transform: rotateY(90deg);
+}
 .character.back {
     transform: rotateY(180deg);
 }
@@ -81,6 +86,7 @@
     background-position: 0 0;
     background-size: cover;
 }
+
 .left_leg {
     position: absolute;
     top: calc(14.35 / 19.41 * 100%);
@@ -92,8 +98,13 @@
     background-position: 0 0;
     background-size: contain;
     transform-origin: top center;
+
+}
+
+.animation .left_leg {
     animation: ani-leg-left 0.5s infinite alternate ease-in-out;
 }
+
 .right_leg {
     position: absolute;
     top: calc(14.35 / 19.41 * 100%);
@@ -105,5 +116,8 @@
     background-position: 0 0;
     background-size: contain;
     transform-origin: top center;
+}
+
+.animation .right_leg {
     animation: ani-leg-right 0.5s infinite alternate ease-in-out;
 }

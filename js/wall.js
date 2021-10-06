@@ -20,8 +20,10 @@
 
   })
 
-  stageElem.addEventListener('click', function() {
-    new Character();
+  stageElem.addEventListener('click', function(e) {
+    new Character({
+      createX: e.x / window.innerWidth
+    });
   })
 
   window.addEventListener('resize', resizeHandler)
