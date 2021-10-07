@@ -3,7 +3,7 @@ body {
     font-family: 'Apple SD Gothic Neo', 'Roboto', 'Noto Sans KR', NanumGothic, 'Malgun Gothic', sans-serif;
     -webkit-overflow-scrolling: touch;
     color: #555;
-    background: #fff000;
+    background: #888;
     transition: background .5s;
 }
 
@@ -75,4 +75,20 @@ body {
 
 .wall-title {
     font-size: 5rem;
+}
+
+.progress-bar-con {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 10px;
+    background: rgba(100, 100, 100, 0.5);
+    z-index: 100;
+}
+
+.progress-bar-inner {
+    width: 0%;
+    height: 100%;
+    background: dodgerblue;
 }

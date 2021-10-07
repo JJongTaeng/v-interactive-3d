@@ -16,10 +16,15 @@ function Character({createX}) {
   this.lastScroll;
   this.scrollState = false;
   this.runningState = false;
+  this.jumpState = false;
+
   this.rafId;
 
+  this.scroll = window.pageYOffset;
+
   this.horizontalMove();
-  this.verticalMove();
+  this.move();
+  this.jump();
   this.init();
 
 }
@@ -38,7 +43,6 @@ Character.prototype = {
   },
   horizontalMove: function () {
     window.addEventListener('scroll', function(e) {
-
       clearTimeout(this.scrollState);
 
       if (this.lastScroll > window.pageYOffset) {
@@ -57,46 +61,57 @@ Character.prototype = {
       }
 
       this.lastScroll = window.pageYOffset;
-
     }.bind(this))
   },
-  verticalMove: function() {
+  move: function() {
     window.addEventListener('keydown', function (e) {
       if (this.runningState) {
         return;
       }
       switch (e.code) {
-        case 'ArrowLeft':
+        case 'KeyA':
           this.root.setAttribute('data-direction', 'left');
           this.root.classList.add('animation');
           this.direction = 'left';
           this.run();
           break;
-        case 'ArrowRight':
+        case 'KeyD':
           this.root.setAttribute('data-direction', 'right');
           this.root.classList.add('animation');
           this.direction = 'right';
           this.run();
           break;
+        case 'KeyW':
+          this.direction = 'forward';
+          this.run();
 
+          break;
+        case 'KeyS':
+          this.direction = 'back';
+          this.run();
+
+          break;
         default:
           break;
       }
-
       this.runningState = true;
     }.bind(this));
 
     window.addEventListener('keyup', function(e) {
       switch (e.code) {
-        case 'ArrowLeft':
+        case 'KeyA':
           this.root.classList.remove('animation');
           window.cancelAnimationFrame(this.rafId);
           break
-        case 'ArrowRight':
+        case 'KeyD':
           this.root.classList.remove('animation');
           window.cancelAnimationFrame(this.rafId);
           break;
-
+        case 'KeyW':
+          window.cancelAnimationFrame(this.rafId);
+          break;
+        case 'KeyS':
+          window.cancelAnimationFrame(this.rafId);
         default:
           break;
       }
@@ -111,9 +126,20 @@ Character.prototype = {
     switch (this.direction) {
       case 'left':
         this.x -= this.speed;
+        this.root.style.left = `${this.x}%`;
+
         break;
       case 'right':
         this.x += this.speed;
+        this.root.style.left = `${this.x}%`;
+        break;
+      case 'forward':
+        this.scroll += 5;
+        window.scroll(0, this.scroll)
+        break;
+      case 'back':
+        this.scroll -= 5;
+        window.scroll(0, this.scroll)
         break;
     }
 
@@ -121,8 +147,22 @@ Character.prototype = {
       return ;
     }
 
-    this.root.style.left = `${this.x}%`;
     this.rafId = requestAnimationFrame(this.run.bind(this))
 
-  }
+  },
+  jump: function() {
+    window.addEventListener('keydown', function(e) {
+      if (e.code === 'Space') {
+        e.preventDefault();
+        this.jumpState || this.root.classList.add('jump');
+        this.jumpState = true;
+      }
+    }.bind(this))
+
+    this.root.addEventListener('animationend', function (e) {
+      this.root.classList.remove('jump');
+      this.jumpState = false;
+    }.bind(this));
+  },
+
 }
