@@ -1,7 +1,8 @@
-function Character({createX}) {
-  this.parent = document.querySelector('.stage');
-  this.root = document.createElement('div');
-  this.element = `
+export class Character {
+  constructor({ createX }) {
+    this.parent = document.querySelector('.stage');
+    this.root = document.createElement('div');
+    this.element = `
         <div class="head-container back">
             <div class="head head-back "></div>
             <div class="head head-front"></div>
@@ -11,27 +12,19 @@ function Character({createX}) {
         <div class="left_leg"></div>
         <div class="right_leg"></div>
   `
-  this.x = createX * 90;
-  this.speed = 0.5;
-  this.lastScroll;
-  this.scrollState = false;
-  this.runningState = false;
-  this.jumpState = false;
+    this.x = createX * 90;
+    this.speed = 0.5;
+    this.lastScroll;
+    this.scrollState = false;
+    this.runningState = false;
+    this.jumpState = false;
 
-  this.rafId;
+    this.rafId;
 
-  this.scroll = window.pageYOffset;
-
-  this.horizontalMove();
-  this.move();
-  this.jump();
-  this.init();
-
-}
-
-Character.prototype = {
-  constructor: Character,
-  init: function() {
+    this.scroll = window.pageYOffset;
+    this.init();
+  }
+  init() {
     this.root.classList.add('character');
     this.root.innerHTML = this.element;
 
@@ -40,8 +33,12 @@ Character.prototype = {
 
     // 캐릭터 stage에 append
     this.parent.appendChild(this.root);
-  },
-  horizontalMove: function () {
+
+    this.horizontalMove();
+    this.move();
+    this.jump();
+  }
+  horizontalMove() {
     window.addEventListener('scroll', function(e) {
       clearTimeout(this.scrollState);
 
@@ -62,8 +59,8 @@ Character.prototype = {
 
       this.lastScroll = window.pageYOffset;
     }.bind(this))
-  },
-  move: function() {
+  }
+  move() {
     window.addEventListener('keydown', function (e) {
       if (this.runningState) {
         return;
@@ -120,8 +117,8 @@ Character.prototype = {
       this.root.setAttribute('data-direction', '');
     }.bind(this))
 
-  },
-  run: function() {
+  }
+  run() {
 
     switch (this.direction) {
       case 'left':
@@ -149,8 +146,8 @@ Character.prototype = {
 
     this.rafId = requestAnimationFrame(this.run.bind(this))
 
-  },
-  jump: function() {
+  }
+  jump() {
     window.addEventListener('keydown', function(e) {
       if (e.code === 'Space') {
         e.preventDefault();
@@ -163,6 +160,5 @@ Character.prototype = {
       this.root.classList.remove('jump');
       this.jumpState = false;
     }.bind(this));
-  },
-
+  }
 }
