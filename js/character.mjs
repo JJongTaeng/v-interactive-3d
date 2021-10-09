@@ -1,8 +1,8 @@
 export class Character {
-  constructor({ createX }) {
-    this.parent = document.querySelector('.stage');
-    this.root = document.createElement('div');
-    this.element = `
+
+  parent = document.querySelector('.stage');
+  root = document.createElement('div');
+  element = `
         <div class="head-container back">
             <div class="head head-back "></div>
             <div class="head head-front"></div>
@@ -12,6 +12,8 @@ export class Character {
         <div class="left_leg"></div>
         <div class="right_leg"></div>
   `
+  constructor({ createX }) {
+
     this.x = createX * 90;
     this.speed = 0.5;
     this.lastScroll;
@@ -23,6 +25,7 @@ export class Character {
 
     this.scroll = window.pageYOffset;
     this.init();
+
   }
   init() {
     this.root.classList.add('character');
