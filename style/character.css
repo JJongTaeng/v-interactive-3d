@@ -50,8 +50,13 @@
 }
 
 
-.character.back {
+.character[data-direction='back'] {
     transform: rotateY(180deg);
+}
+
+
+.character[data-direction='front'] {
+    transform: rotateY(0deg);
 }
 
 .character[data-direction='left'] {

@@ -45,12 +45,6 @@ export class Character {
     window.addEventListener('scroll', function(e) {
       clearTimeout(this.scrollState);
 
-      if (this.lastScroll > window.pageYOffset) {
-        this.root.classList.remove('back');
-      } else {
-        this.root.classList.add('back');
-      }
-
       this.scrollState = setTimeout(function() {
         this.root.classList.remove('animation');
         this.scrollState = false;
@@ -70,23 +64,25 @@ export class Character {
       }
       switch (e.code) {
         case 'KeyA':
-          this.root.setAttribute('data-direction', 'left');
+          this.root.dataset.direction = 'left';
           this.root.classList.add('animation');
           this.direction = 'left';
           this.run();
           break;
         case 'KeyD':
-          this.root.setAttribute('data-direction', 'right');
+          this.root.dataset.direction = 'right';
           this.root.classList.add('animation');
           this.direction = 'right';
           this.run();
           break;
         case 'KeyW':
+          this.root.dataset.direction = 'back';
           this.direction = 'forward';
           this.run();
 
           break;
         case 'KeyS':
+          this.root.dataset.direction = 'forward';
           this.direction = 'back';
           this.run();
 
@@ -117,7 +113,6 @@ export class Character {
       }
 
       this.runningState = false;
-      this.root.setAttribute('data-direction', '');
     }.bind(this))
 
   }
