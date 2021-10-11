@@ -1,10 +1,11 @@
 body {
-    height: 500vw;
     font-family: 'Apple SD Gothic Neo', 'Roboto', 'Noto Sans KR', NanumGothic, 'Malgun Gothic', sans-serif;
     -webkit-overflow-scrolling: touch;
     color: #555;
     background: #888;
     transition: background .5s;
+    background-image: url("../images/background.png");
+
 }
 
 .world {
@@ -43,14 +44,26 @@ body {
 
 .wall-left {
     width: 1000vw;
-    background: #f8f8f8;
     transform: rotateY(90deg) translateZ(-500vw);
+    background-image: url("../images/wall2.png");
 }
 
 .wall-right {
     width: 1000vw;
-    background: #f8f8f8;
     transform: rotateY(90deg) translateZ(-400vw);
+    background-image: url("../images/wall2.png");
+}
+
+/*.wall-top {*/
+/*    height: 1000vw;*/
+/*    transform: rotateX(90deg)  translateZ(500vw);*/
+/*    background-image: url("../images/wall2.png");*/
+/*}*/
+
+.wall-bottom {
+    height: 1000vw;
+    transform: rotateX(90deg) translateZ(calc(500vw - 100vh)) ;
+    background-image: url("../images/wall2.png");
 }
 
 .wall-content {
@@ -60,16 +73,7 @@ body {
     height: 100vh;
 }
 
-.wall-front-a {
-    transform: translateZ(300vw);
-}
-.wall-front-b {
-    transform: translateZ(50vw);
-}
-.wall-front-c {
-    transform: translateZ(-200vw);
-}
-.wall-front-d {
+.wall-last {
     transform: translateZ(-500vw);
 }
 
@@ -77,17 +81,17 @@ body {
     font-size: 5rem;
 }
 
-.progress-bar-con {
+.doc-container {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
-    height: 10px;
+    height: 100px;
     background: rgba(100, 100, 100, 0.5);
     z-index: 100;
 }
 
-.progress-bar-inner {
+.doc-inner {
     width: 0%;
     height: 100%;
     background: dodgerblue;

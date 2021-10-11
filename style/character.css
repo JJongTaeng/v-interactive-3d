@@ -45,9 +45,6 @@
     width: 9.51vw;
     transform-style: preserve-3d;
 }
-.character.jump {
-    animation: jump-character 0.5s 1 alternate ease-in-out;
-}
 
 
 .character[data-direction='back'] {
@@ -66,6 +63,11 @@
 .character[data-direction='right'] {
     transform: rotateY(90deg);
 }
+
+.character.jump {
+    animation: jump-character 0.5s 1 alternate ease-in-out;
+}
+
 
 .head-container {
     position: absolute;

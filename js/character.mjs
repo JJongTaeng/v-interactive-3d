@@ -16,8 +16,6 @@ export class Character {
 
     this.x = createX * 90;
     this.speed = 0.5;
-    this.lastScroll;
-    this.scrollState = false;
     this.runningState = false;
     this.jumpState = false;
 
@@ -37,28 +35,12 @@ export class Character {
     // 캐릭터 stage에 append
     this.parent.appendChild(this.root);
 
-    this.horizontalMove();
     this.move();
     this.jump();
   }
-  horizontalMove() {
-    window.addEventListener('scroll', function(e) {
-      clearTimeout(this.scrollState);
 
-      this.scrollState = setTimeout(function() {
-        this.root.classList.remove('animation');
-        this.scrollState = false;
-      }.bind(this), 500);
-
-      if (this.scrollState) {
-        this.root.classList.add('animation');
-      }
-
-      this.lastScroll = window.pageYOffset;
-    }.bind(this))
-  }
   move() {
-    window.addEventListener('keydown', function (e) {
+    window.addEventListener('keydown', (e) => {
       if (this.runningState) {
         return;
       }
@@ -77,30 +59,28 @@ export class Character {
           break;
         case 'KeyW':
           this.root.dataset.direction = 'back';
+          this.root.classList.add('animation');
           this.direction = 'forward';
-          this.run();
 
           break;
         case 'KeyS':
           this.root.dataset.direction = 'forward';
+          this.root.classList.add('animation');
           this.direction = 'back';
-          this.run();
 
           break;
         default:
           break;
       }
       this.runningState = true;
-    }.bind(this));
+    });
 
-    window.addEventListener('keyup', function(e) {
+    window.addEventListener('keyup',(e) => {
       switch (e.code) {
         case 'KeyA':
-          this.root.classList.remove('animation');
           window.cancelAnimationFrame(this.rafId);
           break
         case 'KeyD':
-          this.root.classList.remove('animation');
           window.cancelAnimationFrame(this.rafId);
           break;
         case 'KeyW':
@@ -111,9 +91,9 @@ export class Character {
         default:
           break;
       }
-
+      this.root.classList.remove('animation');
       this.runningState = false;
-    }.bind(this))
+    })
 
   }
   run() {
@@ -121,27 +101,17 @@ export class Character {
     switch (this.direction) {
       case 'left':
         this.x -= this.speed;
-        this.root.style.left = `${this.x}%`;
 
         break;
       case 'right':
         this.x += this.speed;
-        this.root.style.left = `${this.x}%`;
-        break;
-      case 'forward':
-        this.scroll += 5;
-        window.scroll(0, this.scroll)
-        break;
-      case 'back':
-        this.scroll -= 5;
-        window.scroll(0, this.scroll)
         break;
     }
 
     if (this.x > 90 || this.x < 0) {
       return ;
     }
-
+    this.root.style.left = `${this.x}%`;
     this.rafId = requestAnimationFrame(this.run.bind(this))
 
   }
